@@ -28,13 +28,13 @@ let score = 0;
 //GAME LOOP
 function drawGame() {
   changeSnakePos();
+
   let result = isGameOver();
   if (result) {
     return;
   }
 
   clearScreen();
-  drawGrid();
 
   checkAppleCollision();
   drawApple();
@@ -42,26 +42,10 @@ function drawGame() {
 
   drawScore();
 
-  if (score > 3) SPEED = 15;
+  if (score >= 3) SPEED = 8;
+  if (score >= 20) SPEED = 12;
 
   setTimeout(drawGame, 1000 / SPEED);
-}
-
-function drawGrid() {
-  const w = canvas.width;
-  const h = canvas.height;
-
-  for (let i = 0; i <= w; i += tileCount) {
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, h);
-
-    for (let j = 0; j <= h; j += tileCount) {
-      ctx.moveTo(0, j);
-      ctx.lineTo(w, j);
-    }
-  }
-  ctx.strokeStyle = "#2e2e2e40";
-  ctx.stroke();
 }
 
 function isGameOver() {
@@ -87,7 +71,12 @@ function isGameOver() {
     ctx.fillRect = "white";
     ctx.font = "50px Verdana";
 
-    ctx.fillText("Game Over!", canvas.width / 4, canvas.height / 2);
+    ctx.fillText("Game Over!", canvas.width / 4.4, canvas.height / 2);
+
+    ctx.fillRect = "white";
+    ctx.font = "34px Verdana";
+
+    ctx.fillText("Press enter to restart.", canvas.width / 5.8, canvas.height / 1.6);
   }
 
   return gameOver;
